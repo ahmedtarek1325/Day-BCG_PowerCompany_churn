@@ -1,0 +1,2 @@
+# Day-BCG_PowerCompany_churn
+This repo is my solution for the BCG GAMMA virtual experience! This module is designed to give enthusiasts a feeling of what it is like to work at BCG GAMMA as they help their clients using data science. Their client for this project is PowerCo, a major utilities company. PowerCo has had declining profits due to significant customer churn. They have been engaged to drive churn reduction within their Small &amp; Medium Enterprise (SME) customers.
