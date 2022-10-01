@@ -2,6 +2,8 @@ from datetime import date
 from re import X
 import pandas as pd 
 import numpy as np
+import datetime
+
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -173,13 +175,30 @@ def sampling(X_train,y_train,samplingType=0):
 
 
     if samplingType==1: 
-        smote = SMOTE(random_state=42)
+        smote = SMOTE(sampling_strategy=0.75,random_state=42)
         X_train, y_train= smote.fit_resample(X_train,y_train )
     elif samplingType==2: 
         rus = RandomUnderSampler(random_state=42) 
-        smote = SMOTE(sampling_strategy=0.8,random_state=42)
+        smote = SMOTE(sampling_strategy=0.75,random_state=42)
         
         X_train, y_train= smote.fit_resample(X_train,y_train )
         X_train, y_train= rus.fit_resample(X_train,y_train )
     
     return  X_train, y_train
+
+def extract_date_info(df):
+    def convert_months(ref_date, df, column):
+        time_delta = ref_date - df[column]
+        months = (time_delta / np.timedelta64(1, "M")).astype(int)
+        return months
+
+    df.date_end = pd.to_datetime(df.date_end)
+    df.date_modif_prod = pd.to_datetime(df.date_modif_prod)
+    df.date_renewal = pd.to_datetime(df.date_renewal)
+
+    REFERENCE_DATE = datetime.datetime(2016,1,1)
+    df["months_to_end"] = -convert_months(REFERENCE_DATE, df, "date_end")
+    df["months_modif_prod"] = convert_months(REFERENCE_DATE, df, "date_modif_prod")
+    df["months_renewal"] = convert_months(REFERENCE_DATE, df, "date_renewal")
+
+    return df 

@@ -25,6 +25,7 @@ def simple_pipeline(df,sampling_type=1):
     make upsampling OR Downsampling or Non depending on sampling_type
     '''
     df= log_transfrom_columns(df)
+    df= extract_date_info(df)
     df= decide_peak_period(df,["date_end","date_renewal"])
     drop_columns(df)
     df= one_hot_encoding(df,catFeatures=["channel_sales","origin_up"])
@@ -37,6 +38,8 @@ def simple_pipeline(df,sampling_type=1):
 
     
     return X_train, X_test, y_train, y_test
+
+
 
 def simple_pipeline_cleaned_data(df,sampling_type=1):
     '''

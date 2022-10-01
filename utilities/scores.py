@@ -10,15 +10,15 @@ import matplotlib.pyplot as plt
 
 def report_scores(target,predict):
 	accracy= accuracy_score(target,predict)*100
-	precision = precision_score(target,predict)*100
-	recall= recall_score(target,predict)*100
+	precision = precision_score(target,predict,average='weighted')*100
+	recall= recall_score(target,predict,average='weighted')*100
 	auc= roc_auc(target,predict)*100
 	f1_weigthed= f1_score(target,predict,average='weighted')*100
 
 
 	print(f'Accuracy Score: {accracy:0.2f}',end=" || ")
-	print(f'precision accuracy: {precision:0.2f} ',end=" || ")
-	print(f'recall accuracy {recall:0.2f}',end=" || ")
+	print(f'precision_weighted accuracy: {precision:0.2f} ',end=" || ")
+	print(f'recall_weighted accuracy {recall:0.2f}',end=" || ")
 	print(f"f1_weighted {f1_weigthed:0.2f}",end=" || ")
 	print(f"Area under curve {auc:0.2f}")
 	
